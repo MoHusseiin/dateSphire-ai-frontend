@@ -28,14 +28,48 @@ function App() {
     </div>
   );
 
+  const MatchesList = () => (
+    <div className="rounded-lg shadow-lg p-4">
+      <h2 className="text-2x1 font-bold mb-4">Matches</h2>
+      <ul>
+        {
+          [
+            {
+              "id": "608e55f4-3531-485f-b7ce-8fb158b1c9e4",
+              "firstName": "Lina",
+              "lastName": "Kim",
+              "imageUrl": "http://127.0.0.1:8081/608e55f4-3531-485f-b7ce-8fb158b1c9e4.jpg"
+            },
+            {
+              "id": "4c7da207-9def-470a-8557-62da5420f9fa",
+              "firstName": "Natalia",
+              "lastName": "Lopez",
+              "imageUrl": "http://127.0.0.1:8081/4c7da207-9def-470a-8557-62da5420f9fa.jpg"
+            }
+          ].map(match => (
+            <li key={match.id} className="mb-2">
+              <button className="w-full hover:bg-gray-100 rounded flex item-center">
+                <img src={match.imageUrl} className="w-16 h-16 rounded-full mr-3 object-cover"/>
+                <span>
+                  <h3 className="font-bold">{match.firstName} {match.lastName}</h3>
+                </span>
+              </button>
+            </li>
+          ))
+        }
+     </ul>
+    </div>    
+  );
+  
   return (
     <>
     <div className='max-w-md mx-auto p-4'>
-      <nav className='flex justify-between'>
+      <nav className='flex justify-between mb-4'>
         <User />
         <MessageCircle />
       </nav>
-      <ProfileSelector/>
+      {/* <ProfileSelector/> */}
+      <MatchesList/>
     </div>
     </>
   )
