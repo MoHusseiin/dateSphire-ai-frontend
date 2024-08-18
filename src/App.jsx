@@ -12,7 +12,7 @@ function App() {
       case 'profile':
         return <ProfileSelector/>;
       case 'matches':
-        return <MatchesList/>;
+        return <MatchesList onSelectMatch={ () => setCurrentScreen("chat") }/>;
       case 'chat':
         return <ChatScreen/>;
 
@@ -51,7 +51,7 @@ function App() {
     </div>
   );
 
-  const MatchesList = () => (
+  const MatchesList = ({ onSelectMatch }) => (
     <div className="rounded-lg shadow-lg p-4">
       <h2 className="text-2x1 font-bold mb-4">Matches</h2>
       <ul>
@@ -71,7 +71,7 @@ function App() {
             }
           ].map(match => (
             <li key={match.id} className="mb-2">
-              <button className="w-full hover:bg-gray-100 rounded flex item-center" onClick={() => setCurrentScreen("chat") }>
+              <button className="w-full hover:bg-gray-100 rounded flex item-center" onClick={ onSelectMatch }>
                 <img src={match.imageUrl} className="w-16 h-16 rounded-full mr-3 object-cover"/>
                 <span>
                   <h3 className="font-bold">{match.firstName} {match.lastName}</h3>
@@ -105,7 +105,7 @@ function App() {
           className="border flex-1 rounded p-2 mr-2" 
           placeholder="Type a message..."
           value={input}
-          onChange={(e)=>setInput(e.target.value)}
+          onChange={ (e) => setInput(e.target.value) }
         />
         <button 
           className="bg-blue-500 text-white rounded p-2"
