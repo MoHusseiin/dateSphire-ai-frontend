@@ -5,14 +5,24 @@ import react, { useState } from 'react';
 function App() {
 
   const [currentScreen, setCurrentScreen] = useState('profile');
+  const [input, setInput] = useState('');
 
   const renderScreen = () => {
     switch (currentScreen) {
       case 'profile':
         return <ProfileSelector/>;
-     case 'matches':
-       return <MatchesList/>;
+      case 'matches':
+        return <MatchesList/>;
+      case 'chat':
+        return <ChatScreen/>;
 
+    }
+  }
+
+  const handleSend = () => {
+    if(input.trim()){
+      console.log(input.trim());
+      setInput('');
     }
   }
 
@@ -61,7 +71,7 @@ function App() {
             }
           ].map(match => (
             <li key={match.id} className="mb-2">
-              <button className="w-full hover:bg-gray-100 rounded flex item-center">
+              <button className="w-full hover:bg-gray-100 rounded flex item-center" onClick={() => setCurrentScreen("chat") }>
                 <img src={match.imageUrl} className="w-16 h-16 rounded-full mr-3 object-cover"/>
                 <span>
                   <h3 className="font-bold">{match.firstName} {match.lastName}</h3>
@@ -74,6 +84,39 @@ function App() {
     </div>    
   );
   
+  const ChatScreen = () => (
+    <div className="rounded-lg shadow-lg p-4">
+      <h2 className="text-2xl font-bold mb-4">Chat with Lina Kim</h2>
+      <div className="h-[50vh] border rounded overflow-y-auto mb-4 p-4">
+        {
+          [
+            "Hi",
+            "How are you ?"
+          ].map((messege, index) => (
+            <dev key={index}>
+              <div className="mb-4 p-2 rounded bg-gray-100">{messege}</div>
+            </dev>
+          ))
+        }
+      </div>
+      <div className="flex">
+        <input 
+          type="text" 
+          className="border flex-1 rounded p-2 mr-2" 
+          placeholder="Type a message..."
+          value={input}
+          onChange={(e)=>setInput(e.target.value)}
+        />
+        <button 
+          className="bg-blue-500 text-white rounded p-2"
+          onClick={ handleSend }
+          >
+          Send
+        </button>
+      </div>
+    </div>
+  );
+
   return (
     <>
     <div className='max-w-md mx-auto p-4'>
